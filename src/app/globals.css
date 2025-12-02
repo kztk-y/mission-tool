@@ -1,26 +1,139 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* バクラク風ポップなカラースキーム */
+    --background: 210 40% 98%; /* 薄いブルーグレー背景 */
+    --foreground: 222 47% 20%; /* ダークネイビーテキスト */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 20%;
+
+    /* プライマリ: 明るいブルー（バクラク風） */
+    --primary: 205 90% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    /* セカンダリ: 薄いブルー */
+    --secondary: 205 60% 94%;
+    --secondary-foreground: 205 90% 35%;
+
+    /* ミュート: 薄いグレー */
+    --muted: 210 30% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    /* アクセント: イエロー（バクラク風） */
+    --accent: 45 100% 75%;
+    --accent-foreground: 30 80% 25%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 205 90% 45%;
+
+    /* より丸い角丸 */
+    --radius: 0.75rem;
+
+    /* チャートカラー（ポップな配色） */
+    --chart-1: 205 90% 50%; /* ブルー */
+    --chart-2: 160 84% 45%; /* グリーン */
+    --chart-3: 45 100% 60%; /* イエロー */
+    --chart-4: 280 65% 60%; /* パープル */
+    --chart-5: 340 75% 55%; /* ピンク */
+
+    /* サイドバー: 明るいブルー系 */
+    --sidebar-background: 205 60% 97%;
+    --sidebar-foreground: 222 47% 25%;
+    --sidebar-primary: 205 90% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 205 70% 92%;
+    --sidebar-accent-foreground: 205 90% 30%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 205 90% 45%;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 14%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 14%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 205 90% 55%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217 33% 20%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 45 100% 65%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 205 90% 55%;
+    --sidebar-background: 222 47% 13%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 205 90% 55%;
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 217 33% 20%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 18%;
+    --sidebar-ring: 205 90% 55%;
+    --chart-1: 205 90% 60%;
+    --chart-2: 160 70% 50%;
+    --chart-3: 45 100% 65%;
+    --chart-4: 280 65% 65%;
+    --chart-5: 340 75% 60%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* スムーズなスクロール */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* フォーカス時のアウトライン */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer utilities {
+  /* グラデーション背景 */
+  .bg-gradient-primary {
+    @apply bg-gradient-to-r from-[hsl(205,90%,45%)] to-[hsl(205,90%,55%)];
+  }
+
+  /* ポップなシャドウ */
+  .shadow-pop {
+    box-shadow: 0 4px 14px 0 rgba(0, 118, 255, 0.15);
+  }
+
+  /* ホバー時のアニメーション */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+
+  /* カード用のシャドウ */
+  .card-shadow {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  /* アクセントバッジ */
+  .badge-accent {
+    @apply bg-[hsl(45,100%,85%)] text-[hsl(30,80%,25%)] font-medium;
+  }
 }
