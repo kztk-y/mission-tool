@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
 
 export default function Error({
   error,
@@ -17,8 +16,13 @@ export default function Error({
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4">
       <h1 className="text-4xl font-bold">エラーが発生しました</h1>
-      <p className="text-muted-foreground">申し訳ございません。問題が発生しました。</p>
-      <Button onClick={reset}>もう一度試す</Button>
+      <p className="text-gray-500">申し訳ございません。問題が発生しました。</p>
+      <button
+        onClick={reset}
+        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+      >
+        もう一度試す
+      </button>
     </div>
   );
 }

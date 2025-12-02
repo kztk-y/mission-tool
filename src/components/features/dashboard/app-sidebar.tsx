@@ -45,6 +45,12 @@ const menuItems = [
     description: "予定を確認",
   },
   {
+    title: "レポート",
+    url: "/reports",
+    icon: "📈",
+    description: "時間集計・分析",
+  },
+  {
     title: "メンバー",
     url: "/members",
     icon: "👥",
