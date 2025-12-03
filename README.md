@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mission Tool
 
-## Getting Started
+IPO準備中のスタートアップ向けミッション管理ツール。「誰が何にどれだけ時間を使っているか」を可視化し、OKR/ミッションの進捗管理を支援します。
 
-First, run the development server:
+## 本番URL
+
+https://mission-tool.vercel.app
+
+## 機能一覧
+
+### 実装済み
+
+| 機能 | ページ | 説明 |
+|-----|------|------|
+| ダッシュボード | `/dashboard` | 統計情報・概要表示 |
+| ミッション一覧 | `/missions` | OKR/ミッションの一覧・進捗表示 |
+| ミッション作成 | `/missions/new` | 新規ミッション作成 |
+| ミッション詳細 | `/missions/[id]` | 詳細表示・Key Results管理 |
+| ミッション編集 | `/missions/[id]/edit` | ミッション情報の編集 |
+| ユーザー管理 | `/users` | ユーザー一覧・役割変更・削除 |
+| ユーザー招待 | `/users/new` | 新規ユーザー追加 |
+| レポート | `/reports` | 時間集計・ミッション別・ユーザー別分析 |
+| Excelインポート | `/import` | KPI実績データのインポート（スキャフォールド） |
+
+### 未完了（次回対応）
+
+- [ ] **Google Calendar連携** - OAuth認証設定、カレンダーイベント取得
+- [ ] **本番認証の有効化** - 現在は開発用ダミーユーザーで動作中
+- [ ] **イベント→ミッション紐付け** - カレンダーイベントをミッションに分類する機能
+
+## 技術スタック
+
+- **フレームワーク**: Next.js 14 (App Router)
+- **言語**: TypeScript
+- **データベース**: Supabase (PostgreSQL)
+- **認証**: Supabase Auth
+- **UI**: TailwindCSS + shadcn/ui
+- **デプロイ**: Vercel
+- **カレンダー連携**: Google Calendar API（設定待ち）
+
+## 開発環境セットアップ
 
 ```bash
+# 依存関係インストール
+npm install
+
+# 開発サーバー起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 でアクセス
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 環境変数
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`.env.local` に以下を設定：
 
-## Learn More
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 
-To learn more about Next.js, take a look at the following resources:
+# Google Calendar連携用（未設定）
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+NEXTAUTH_URL=https://mission-tool.vercel.app
+NEXTAUTH_SECRET=
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## データベーススキーマ
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Supabaseに以下のテーブルが必要：
 
-## Deploy on Vercel
+- `organizations` - 組織
+- `users` - ユーザー
+- `missions` - ミッション/OKR
+- `key_results` - 成果指標
+- `calendar_events` - カレンダーイベント
+- `google_tokens` - Google認証トークン（未作成）
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## デプロイ
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+GitHubにプッシュすると、Vercelが自動でデプロイします。
+
+```bash
+git add -A
+git commit -m "変更内容"
+git push origin main
+```
+
+## 次回やることリスト
+
+1. **Google Calendar連携の完成**
+   - Google Cloud Consoleでプロジェクト設定
+   - OAuth 2.0認証情報の作成
+   - Vercel環境変数の設定
+   - Supabaseに`google_tokens`テーブル作成
+
+2. **本番認証の有効化**
+   - `src/app/(auth)/layout.tsx` の認証チェックを有効化
+   - ログインページの動作確認
+   - ユーザー登録フローの実装
+
+3. **イベント→ミッション紐付け機能**
+   - カレンダーイベント一覧表示
+   - ドラッグ&ドロップまたはセレクトでミッション割り当て
+   - 自動分類ルール設定
+
+## ライセンス
+
+Private
